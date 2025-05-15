@@ -1,27 +1,23 @@
-import { API_URL } from "../../../(home)/page";
-
-async function getMovie(id: string) {
-  console.log(`Fetching Movies ${Date.now()}`);
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  const response = await fetch(`${API_URL}/${id}`);
-
-  return response.json();
-}
-
-async function getVideos(id: string) {
-  console.log(`Fetching Videos ${Date.now()}`);
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  const response = await fetch(`${API_URL}/${id}/videos`);
-
-  return response.json();
-}
+import { Suspense } from "react";
+import MovieInfo from "../../../../components/movie-info";
+import MovieVideos from "../../../../components/movie-videos";
 
 export default async function MovieDetail({
-  params: { id },
+  params,
 }: {
   params: { id: string };
 }) {
-  const [movie, videos] = await Promise.all([getMovie(id), getVideos(id)]);
+  const { id } = await params; // ✅ 비동기적으로 접근
 
-  return <h1>{movie.title}</h1>;
+  return (
+    <div>
+      <h3>Movie detail page</h3>
+      <Suspense fallback={<h1>Loading movie info {id}</h1>}>
+        <MovieInfo id={id} />
+      </Suspense>
+      <Suspense fallback={<h1>Loading movie video</h1>}>
+        <MovieVideos id={id} />
+      </Suspense>
+    </div>
+  );
 }

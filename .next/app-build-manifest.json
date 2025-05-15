@@ -20,15 +20,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(home)/page.js"
     ],
-    "/(movies)/movies/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(movies)/movies/[id]/page.js"
-    ],
     "/(movies)/movies/[id]/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(movies)/movies/[id]/loading.js"
+    ],
+    "/(movies)/movies/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(movies)/movies/[id]/page.js"
     ],
     "/about-us/layout": [
       "static/chunks/webpack.js",
