@@ -2,12 +2,12 @@ import { Suspense } from "react";
 import MovieInfo, { getMovie } from "../../../../components/movie-info";
 import MovieVideos from "../../../../components/movie-videos";
 
-interface IParams {
-  params: { id: string };
-}
+type IParams = Promise<{ id: string }>;
 
-export async function generateMetadata({ params }: IParams) {
-  const { id } = await params;
+export async function generateMetadata(props: { params: IParams }) {
+  const params = await props.params;
+  const id = params.id;
+
   const movie = await getMovie(id);
 
   return {
@@ -15,8 +15,9 @@ export async function generateMetadata({ params }: IParams) {
   };
 }
 
-export default async function MovieDetailPage({ params }: IParams) {
-  const { id } = await params; // ✅ 비동기적으로 접근
+export default async function MovieDetailPage(props: { params: IParams }) {
+  const params = await props.params;
+  const id = params.id;
 
   return (
     <div>
